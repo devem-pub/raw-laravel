@@ -43,10 +43,10 @@ class TestController extends Controller
     public function addNewProduct()
     {
         // QUERY BUILDER BASED (FLUENT SYNTAX)
-        // $product = DB::table('products')->insert([
-        //     'product' => 'ASIN',
-        //     'qty' => 20
-        // ]);
+        $product = DB::table('products')->insert([
+            'product' => 'ASIN',
+            'qty' => 20
+        ]);
 
         // QUERY BUILDER BASED (RAW SQL)
         // $product = DB::insert('INSERT INTO products (product, qty) VALUES (?, ?)', [
@@ -60,22 +60,40 @@ class TestController extends Controller
         //     'qty' => 10
         // ]);
 
-        // return $product;
+        return $product;
     }
 
     public function updateProduct()
     {
         // QUERY BUILDER BASED (FLUENT SYNTAX)
-        $product = DB::table('products')
-            ->where('product', 'ASIN')
-            ->update(['qty' => 20]);
+        // $product = DB::table('products')
+        //     ->where('product', 'ASIN')
+        //     ->update(['qty' => 250]);
 
         // QUERY BUILDER BASED (RAW SQL)
-        // $product = DB::update('UPDATE products SET qty = ? WHERE product = ?', [20, 'ASIN']);
+        // $product = DB::update('UPDATE products SET qty = ? WHERE product = ?', [120, 'ASIN']);
 
         // ELOQUENT MODEL BASED
-        // $product = Products::where('product', 'ASIN')
-        //     ->update(['qty' => 20]);
+        $product = Products::where('product', 'ASIN')
+            ->update(['qty' => 10]);
+
+        return $product;
+    }
+
+
+    public function deleteProduct()
+    {
+        // QUERY BUILDER BASED (FLUENT SYNTAX)
+        $product = DB::table('products')
+            ->where('product', 'ASIN')
+            ->delete();
+
+        // QUERY BUILDER BASED (RAW SQL)
+        // DB::delete('DELETE FROM products WHERE product = ?', ['ASIN']);
+
+        // ELOQUENT MODEL BASED
+        // $product = Products::destroy(5);
+        // $product = Products::where('product', 'ASIN')->delete();
 
         return $product;
     }
